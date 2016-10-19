@@ -1,0 +1,8 @@
+# Latex
+*.aux
+*.log
+
+# vim
+*~
+*.swp
+*.swo
