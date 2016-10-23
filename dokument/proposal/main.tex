@@ -1,8 +1,10 @@
-\documentclass{article}
+\documentclass[10,twocolumn]{article}
 \usepackage[utf8]{inputenc}
+%\usepackage{hyperref}
 
 \title{QuickCHecking C kod i Haskell}
-\author{Sebastian Lagerman }
+\author{Sebastian Lagerman \\ seblag@student.chalmers.se}
+%\author{Sebastian Lagerman \\ \href{mailto:seblag@student.chalmers.se}{seblag@student.chalmers.se}}
 \date{October 2016}
 
 \usepackage{natbib}
@@ -12,11 +14,22 @@
 
 \maketitle
 
+Description:
+
+Build a tool that one can use to QuickCheck C code against a Haskell specification. Use this to test open-source libraries in C,
+for example for datastructures, image manipulation, compression, encryption, etc.
+
+Backgrounds:
+
+Intro. FP, Datastructures, C, AFP
+
 \input{introduction}
 
 \input{context}
 
 \input{goals_and_challenges}
+
+\input{approach}
 
 \input{references}
 
@@ -25,16 +38,16 @@
 %There is another theory which states that this has already happened.
 %\input{introduction}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1.7]{universe.jpg}
-\caption{The Universe}
-\label{fig:univerise}
-\end{figure}
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=1.7]{universe.jpg}
+%\caption{The Universe}
+%\label{fig:univerise}
+%\end{figure}
 
-\section{Conclusion}
-``I always thought something was fundamentally wrong with the universe'' \citep{adams1995hitchhiker}
+%\section{Conclusion}
+%``I always thought something was fundamentally wrong with the universe'' \citep{adams1995hitchhiker}
 
-\bibliographystyle{plain}
-\bibliography{references}
+%\bibliographystyle{plain}
+%\bibliography{references}
 \end{document}
