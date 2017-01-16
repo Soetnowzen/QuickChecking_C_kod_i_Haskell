@@ -1,64 +1,62 @@
 \section{Approach}
 
-Various scientific approaches are appropriate for different challenges and project goals.
-Outline and justify the ones that you have selected.
-For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
+% Various scientific approaches are appropriate for different challenges and project goals.
+% Outline and justify the ones that you have selected.
+% For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
 
-One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
-If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
-For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
-If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.{Approach}
+% One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
+% If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
+% For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
+% If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.{Approach}
 
-Various scientific approaches are appropriate for different challenges and project goals.
-Outline and justify the ones that you have selected.
-For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
+% \begin{itemize}
+%   \item The design and implementation should specify prototype properties, such as functionalities and performance goals, e.g., scalability, memory, energy.
+%     Motivate key design, with respect to state of the art and existing platforms, libraries, etc.
+%   \item When discussing evaluation criteria, describe the testing environment, e.g., test-bed experiments, simulation, and user studies, which you plan to use when assessing your prototype.
+%     Specify key tools, and preliminary test-case scenarios.
+%     Explain how and why you plan to use the evaluation criteria in order to demonstrate the functionalities and design goals.
+%     Explain how you plan to compare your prototype to the state of the art using the proposed test-case evaluation scenarios and benchmarks.
+% \end{itemize}
 
-One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
-If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
-For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
-If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.{Approach}
+I will create a structure for associating C libraries with their corresponding properties.
+Then, I will implement the tool which will analyse a library and use QuickCheck to test the properties.
 
-Various scientific approaches are appropriate for different challenges and project goals.
-Outline and justify the ones that you have selected.
-For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
+Before starting the implementation of the tool, I will need to dig deeper into the inner workings of QuickCheck and a C parsing tool for example inline-c.
+An advantage of using inline-c would be that the Constructor Arbitrary is already defined for the standard types in C.
+Since QuickCheck is written in Haskell the properties will be written in the same language.
+However a possibility would be to make the properties written in C as well for ease of usage.
+An example of how properties could look would be:
 
-One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
-If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
-For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
-If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.{Approach}
+\begin{verbatim}
+    import qualified Language.C.Inline as C
+    
+    c.include "<math.h>"
+    
+    prop_c_math :: Int -> Property
+    prop_c_math i = [C.exp| abs(neg_i)|] == i
+        where neg_i = -i
+\end{verbatim}
 
-Various scientific approaches are appropriate for different challenges and project goals.
-Outline and justify the ones that you have selected.
-For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
+In order to show the correctness of the tool's output, I will construct a test suite containing unit tests for each library listed above.
+The output will be using the same output look as QuickChecking would normally look.
+For example:
 
-One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
-If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
-For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
-If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.{Approach}
+Successful:
 
-Various scientific approaches are appropriate for different challenges and project goals.
-Outline and justify the ones that you have selected.
-For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
+\begin{verbatim}
+    Main> quickCheckingC prop_c_math
+    OK: passed 100 tests.
+\end{verbatim}
 
-One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
-If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
-For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
-If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.{Approach}
+Bug found:
 
-Various scientific approaches are appropriate for different challenges and project goals.
-Outline and justify the ones that you have selected.
-For example, when your project considers systematic data collection, you need to explain how you will analyze the data, in order to address your challenges and project goals.
+\begin{verbatim}
+    Main> quickCheckingC prop_c_math
+    Falsifiable, after 1 tests:
+    [2]
+    [-2]
+\end{verbatim}
 
-One scientific approach is to use formal models and rigorous mathematical argumentation to address aspects like correctness and efficiency.
-If this is relevant, describe the related algorithmic subjects, and how you plan to address the studied problem.
-For example, if your plan is to study the problem from a computability aspect, address the relevant issues, such as algorithm and data structure design, complexity analysis, etc.
-If you plan to develop and evaluate the prototype, briefly describe your plans to design, implement, and evaluate your prototype by reviewing at most two relevant issues, such as key functionalities and their evaluation criteria.
+As extra work (given there is enough time) I also want to extend this module and make it modular and not to focus on testing C libraries.
+If so then similar libraries in other languages could be tested.
 
-\begin{itemize}
-  \item The design and implementation should specify prototype properties, such as functionalities and performance goals, e.g., scalability, memory, energy.
-    Motivate key design, with respect to state of the art and existing platforms, libraries, etc.
-  \item When discussing evaluation criteria, describe the testing environment, e.g., test-bed experiments, simulation, and user studies, which you plan to use when assessing your prototype.
-    Specify key tools, and preliminary test-case scenarios.
-    Explain how and why you plan to use the evaluation criteria in order to demonstrate the functionalities and design goals.
-    Explain how you plan to compare your prototype to the state of the art using the proposed test-case evaluation scenarios and benchmarks.
-\end{itemize}

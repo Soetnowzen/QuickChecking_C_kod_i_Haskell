@@ -1,4 +1,34 @@
 \section{Goals and Challenges}
 
-Describe your contribution with respect to concepts, theory and technical goals.
-Ensure that the scientific and engineering challenges stand out so that the reader can easily recognize that you are planning to solve an advanced problem.
+% Describe your contribution with respect to concepts, theory and technical goals.
+% Ensure that the scientific and engineering challenges stand out so that the reader can easily recognise that you are planning to solve an advanced problem.
+
+The goal of the project is to create a tool for generating tests for open source C libraries.
+The tool should be easy and feasible to use in regular C development.
+
+Another way to solve this problem would be to create and use a property-based library in C, however this has already been done by Scott Vokes \citep{theft}.
+To avoid reinventing the wheel and to improve Chalmers own QuickCheck we propose to use Haskell instead.
+This would make the goal to provide a Haskell module for QuickChecking properties for the following C libraries:
+
+\begin{itemize}
+  \item limits
+  \item cmath
+  \item string
+  \item time
+  \item uchar
+  \item wchar
+  \item wctype
+\end{itemize}
+
+These were chosen because they are commonly used libraries in C development \citep{website:en.wikipedia.org}.
+It will be good to use some standard libraries to start with to make sure that the problems that are found in the beginning actually occur inside the testing module that will be created.
+More libraries may be added if time permits such as a library that contains bugs.
+
+Some possible libraries that could be created with known bugs in them could be:
+
+\begin{itemize}
+  \item data structures
+  %\item image manipulation
+  \item compression
+  \item encryption
+\end{itemize}
