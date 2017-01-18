@@ -9,3 +9,13 @@
 *~
 *.swp
 *.swo
+
+# Haskell
+*.o
+*.hi
+cabal-dev
+.cabal-sandbox/
+cabal.sandbox.config
+cabal.project.local
+dist
+dist-*
