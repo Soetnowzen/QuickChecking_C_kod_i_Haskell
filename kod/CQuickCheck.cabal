@@ -110,3 +110,17 @@ executable sixth
   cc-options:        -Wall -O2
   -- Libraries to link the code with.
   extra-libraries:   m
+
+executable seventh
+  hs-source-dirs:    test
+  build-depends:     base >= 4 && < 5
+                     , inline-c
+                     , QuickCheck
+  main-is:           Seventh.hs
+
+  c-sources:         test/Seventh.c
+
+  -- These flags will be passed to the C compiler
+  cc-options:        -Wall -O2
+  -- Libraries to link the code with.
+  extra-libraries:   m
