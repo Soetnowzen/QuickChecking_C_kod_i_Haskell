@@ -124,3 +124,20 @@ executable seventh
   cc-options:        -Wall -O2
   -- Libraries to link the code with.
   extra-libraries:   m
+
+executable eight
+  hs-source-dirs:    test
+  build-depends:     base >= 4 && < 5
+                     , inline-c
+                     , QuickCheck
+                     , random
+  main-is:           Eight.hs
+
+  c-sources:         test/Eight.c
+
+  -- These flags will be passed to the C compiler
+  cc-options:        -Wall -O2
+  -- Libraries to link the code with.
+  --extra-include-dirs: test
+  -- extra-lib-dirs:    test/linked_list
+  extra-libraries:   m 
