@@ -18,45 +18,64 @@
 %     Explain how you plan to compare your prototype to the state of the art using the proposed test-case evaluation scenarios and benchmarks.
 % \end{itemize}
 
-I will create a structure for associating C libraries with their corresponding properties.
-Then, I will implement the tool which will analyse a library and use QuickCheck to test the properties.
+We will create a structure for generating boiler plate code from C libraris to try and streamline the process of testing libraries.
+The properties will the user of this module have to write.
+Once at least one property have been written then the library will be able to be tested.
+Though if the library contains a struct more work from the user will be needed.
+That work will be to construct the arbitrary instance of these structs.
+% We will implement the tool which will analyse a library and use QuickCheck to test the properties.
 
-Before starting the implementation of the tool, I will need to dig deeper into the inner workings of QuickCheck and a C parsing tool for example inline-c.
-An advantage of using inline-c would be that the Constructor Arbitrary is already defined for the standard types in C.
-Since QuickCheck is written in Haskell the properties will be written in the same language.
-However a possibility would be to make the properties written in C as well for ease of usage.
-An example of how properties could look would be:
+Before starting the implementation of the tool, we will need to dig deeper into the inner workings of QuickCheck and the C parsing module inline-c.
+An advantage of using inline-c would be that the instance Integral is already defined for the standard types in C.
+Which will make writing the Arbitrary instance for these will be simple.
+Since QuickCheck is written in Haskell then the properties will be written in the same language.
+% However a possibility would be to make the properties written in C as well for ease of usage.
+An example of how the generated file could look like based on the library math with only the abs function in it, would be:
 
 \begin{verbatim}
-    import qualified Language.C.Inline as C
+  import Foreign.C.Types
+  import Test.QuickCheck
+  import qualified Language.C.Inline as C
     
-    c.include "<math.h>"
+  C.include "<math.h>"
+
+  instance Arbitrary CInt where
+    arbitrary = arbitrarySizedIntegral
+    shrink    = shrinkIntegral
+
+  c_abs :: CInt -> CInt
+  c_abs i = [C.pure| int{ abs( $(int i) ) } |] :: CInt
     
-    prop_c_math :: Int -> Property
-    prop_c_math i = [C.exp| abs(neg_i)|] == i
-        where neg_i = -i
+  -- Write your properties here
+  -- begin each property function with "prop_"
+  prop_negateValue :: CInt -> Bool
+  prop_negateValue a = c_abs a == c_abs (-a)
+
+  return []
+  runTests = $quickCheckAll
+
+  main :: IO ()
+  main = runTests >>= print
 \end{verbatim}
 
-In order to show the correctness of the tool's output, I will construct a test suite containing unit tests for each library listed above.
-The output will be using the same output look as QuickChecking would normally look.
+% In order to show the correctness of the tool's output, we will construct a test suite containing unit tests for each library listed above.
+In order to show the correctness of the tool, we will be using QuickCheck.
+The output of the generated files will be using the same output printout as QuickCheck.
 For example:
 
 Successful:
 
 \begin{verbatim}
-    Main> quickCheckingC prop_c_math
-    OK: passed 100 tests.
+  Main> quickCheckingC prop_negateValue
+  OK: passed 100 tests.
 \end{verbatim}
 
 Bug found:
 
 \begin{verbatim}
-    Main> quickCheckingC prop_c_math
-    Falsifiable, after 1 tests:
-    [2]
-    [-2]
+  Main> quickCheckingC prop_negateValue
+  Falsifiable, after 1 tests:
+  [2]
+  [-2]
 \end{verbatim}
-
-As extra work (given there is enough time) I also want to extend this module and make it modular and not to focus on testing C libraries.
-If so then similar libraries in other languages could be tested.
 

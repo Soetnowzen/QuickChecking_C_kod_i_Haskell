@@ -4,13 +4,19 @@
 % Why is addressing these challenges significant for gaining new knowledge in the studied domain?
 % How and where can this new knowledge be applied?
 
-Testing of your code is important, but people don't want to spend an equal amount of time to write test for the same amount of code.
-One way to solve this problem is to generate tests.
+Testing of code is important and a way of testing code is to generate tests and testing properties.
+A useful property based testing tool is QuickCheck however currently it cannot check C libraries without other modules. % Maybe reference?
+An interesting problem could then be to streamline the process of testing C code in the QuickCheck module in Haskell.
+% An interesting extension to QuickCheck could then be to parse a C library and generate the boiler plate code for testing the library with the QuickCheck module in Haskell.
 
-The goal of this proposal is to build a tool or application that one can use to QuickCheck C code against a Haskell specification.
-Then use this to test open-source libraries in C, for example for data structures, image manipulation, compression, encryption, etc.
-This tool will be a good way to streamline the testing to ensure software quality.
-Knowledge of this will hopefully be useful in code testing to reduce the amount of time spent on writing tests for code.
-For this Master thesis it will be tested on open source C code.
+
+
+% build a tool to parse C files to construct the boiler plate code for the module inline-c.
+
+% The goal of this proposal is to build a tool or application that one can use to QuickCheck C code against a Haskell specification.
+% Then use this to test open-source libraries in C, for example for data structures, image manipulation, compression, encryption, etc.
+% This tool will be a good way to streamline the testing to ensure software quality.
+% Knowledge of this will hopefully be useful in code testing to reduce the amount of time spent on writing tests for code.
+% For this Master thesis it will be tested on open source C code.
 % \ref{QuickCheckAUTOSAR}
 
