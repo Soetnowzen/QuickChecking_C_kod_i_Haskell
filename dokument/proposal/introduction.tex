@@ -4,11 +4,75 @@
 % Why is addressing these challenges significant for gaining new knowledge in the studied domain?
 % How and where can this new knowledge be applied?
 
-Testing of code is important and a way of testing code is to generate tests and testing properties.
-A useful property based testing tool is QuickCheck however currently it cannot check C libraries without other modules. % Maybe reference?
-An interesting problem could then be to streamline the process of testing C code in the QuickCheck module in Haskell.
-% An interesting extension to QuickCheck could then be to parse a C library and generate the boiler plate code for testing the library with the QuickCheck module in Haskell.
+\begin{itemize}
+  % \item det finns mycket C kod där ute
+  % \item testning är viktigt
+  % \item hur tester man C kod nu?
+  % \item vad är nackdelarna med unit tests?
+  % \item property-based testning är bättre
+  % \item vad är problemet med property-based testning i C?
+  \item Haskell är mer expressiv
+  \item man kan inte bara så där anropa testa C kod -> mycket boilerplate
+  \item dessutom är C kod ofta stateful
+  \item stateful testning finns inte i Haskell QC
+  \item förklara hur resten av dokumentet ser ut (relatera till ovanstående)
+\end{itemize}
 
+The programming language C has existed since the early 70s \citep{website:en.wikipedia.org}.
+As such there exists a lot of C libraries. 
+To make sure that your code works then you perform some sort of test.
+Programmers use tests to establish confidence in the correctness the software.
+By just inserting some sort of input then you then expect a certain kind of output.
+Two common ways of testing your C code is either unit testing or property based testing.
+However the problem with writing unit tests is that it takes a lot of effort.
+John Hughes does an excellent job to introduce this in his paper:
+Experiences with QuickCheck: Testing the Hard Stuff and Staying Sane \citep{QuickCheckQuviq}.
+To get the same amount of certainty for less efforts you simply automate tests.
+Given a property that holds then we can generate random inputs for that property, also know as property based testing.
+Currently it is possible to perform property based testing, however according to Paul Hudak and Mark P. Jones research paper then writing code in Haskell is more expressive and require less lines of code compared to Haskell \citep{HaskellVsWorld}.
+Since Haskell is more expressive then C then there will be communication problems between the two languages which can be eased into by creation of boilerplate code.
+
+
+
+
+Testing of code is important and a way of testing code is to generate tests and testing properties also know as stateful testing.
+However currently QuickCheck is unable to perform stateful testing.
+Now if QuickCheck had stateful testing then an interesting problem would be to use that module to test code from another language such as C.
+
+The obvious question that comes to mind then is why not perform these stateful tests in C instead of using Haskell.
+A simple answer to this is that Haskell have a more readable appearance and require less code for the same problem in C.
+
+$\#$ Perhaps insert comparison example here between Haskell and C code? $\#$
+
+\begin{tabular}{l | l}
+\begin{minipage}{2in}
+\begin{verbatim}
+C code example Quicksort
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}{2in}
+\begin{verbatim}
+Haskell code example Quicksort
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+
+Once QuickCheck has this stateful testing module then creating another module for generating boiler plate code.
+This boiler plate code would then be for stateful testing of a C library in QuickCheck would be interesting problem.
+
+% A useful property based testing tool is QuickCheck however currently it can neither perform stateful tests or test C libraries without other modules. % Maybe reference?
+% An interesting problem could then be to streamline the process of testing C code in the QuickCheck module in Haskell.
+
+% \begin{itemize}
+%   \item Fundera på $\&$ kolla hur vi ska hantera stateful testing.
+%   \item Varför är Haskell är bra?
+%   \begin{itemize}
+%     \item properties är bra i Haskell
+%     \item Lättare att genera typer
+%     \item Hitta referencer till $\#$C $>$ $\#$Haskell antal rader
+%   \end{itemize}
+% \end{itemize}
 
 
 % build a tool to parse C files to construct the boiler plate code for the module inline-c.
