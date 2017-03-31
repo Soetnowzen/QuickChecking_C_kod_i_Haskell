@@ -13,4 +13,4 @@ clean:
 	rm -rf *.out
 	rm -rf *.bbl
 	rm -rf *.blg
-	rm -rf *.un~
+	rm -rf .**.un~
